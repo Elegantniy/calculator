@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор: множення ⇄ ділення</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f6f6f6;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
+    input {
+      font-size: 1.2em;
+      padding: 5px;
+      width: 150px;
+    }
+    .note {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔁 Калькулятор: множення ⇄ ділення</h2>
+
+  <label for="divisionInput">Введіть значення <b>ділення</b> (напр. 1.3):</label>
+  <input type="number" id="divisionInput" step="0.01" min="0.01" value="1.2" />
+
+  <label for="multiplicationInput">Введіть значення <b>множення</b> (напр. 0.8):</label>
+  <input type="number" id="multiplicationInput" step="0.0001" min="0.0001" value="0.8333" />
+
+  <p class="note">Зміни будь-яке з полів — інше оновиться автоматично.</p>
+
+  <script>
+    const divisionInput = document.getElementById("divisionInput");
+    const multiplicationInput = document.getElementById("multiplicationInput");
+
+    let isUpdating = false;
+
+    divisionInput.addEventListener("input", () => {
+      if (isUpdating) return;
+      const divValue = parseFloat(divisionInput.value);
+      if (divValue > 0) {
+        isUpdating = true;
+        multiplicationInput.value = (1 / divValue).toFixed(4);
+        isUpdating = false;
+      }
+    });
+
+    multiplicationInput.addEventListener("input", () => {
+      if (isUpdating) return;
+      const multValue = parseFloat(multiplicationInput.value);
+      if (multValue > 0) {
+        isUpdating = true;
+        divisionInput.value = (1 / multValue).toFixed(4);
+        isUpdating = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
